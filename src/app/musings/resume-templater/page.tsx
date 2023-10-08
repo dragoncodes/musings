@@ -4,64 +4,59 @@ import { ResumeData } from "./lib/types/ResumeData";
 const resume: ResumeData = {
   profile: {
     name: "John Doe",
-    jobTitle: "Stay at home bum",
+    jobTitle: "Aspiring (Yet Uninspired) Software Engineer",
     image:
-      "https://miro.medium.com/v2/resize:fill:88:88/1*gS5mQEq_1gfOxllcGksSaQ.jpeg",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5j_T-H41cuyobO8xAn2GVpSJDKCkOz2qsIhpHdx6QXg&s",
   },
 
-  summary:
-    "I am a passionate product thinker and UX advocate, driven to create seamless user experiences. Asa a proactive problem solver and dedicated knowledge sharer, I thrive in fast-paced software environments, inspiring my colleagues to embrace agility and efficiency. My expertise lies in developing simple, maintainable code that expertly addresses complex business needs",
+  summary: `
+Meet John Doe, the software engineer who dreams big but codes... occasionally. With a passion for the lucrative side of coding, John's motto is, "Why work hard when you can hardly work?" He's an avid fan of Rust, not because he knows it, but because he's heard it's the next big thing. He's got all the Rust books, stickers, and even a Rust-themed coffee mug, but ask him to write a line of Rust code, and he'll probably Google it. Dive into his portfolio, and you'll find a collection of unfinished projects, half-baked ideas, and a sincere wish to someday, maybe, possibly, learn Rust. If only it wasn't so darn challenging!`,
 
   employmentHistory: [
     {
       startDate: new Date("2019-01-01").toISOString(),
       endDate: "present",
-      companyName: "Company 1",
+      companyName: "LazyTech Innovations",
+      jobTitle: "Chief Procrastination Officer (CPO)",
       description: `
-As a senior member of the Onboarding cross-functional team, I embrace a diverse range of responsibilities:
-Devising technical design solutions (FE + BE collaboration)
-Mentoring new developers and helping out with development
-Assisting with back-end implementation when needed, using Java (Spring)
-
-Additionally, I have proposed and implemented several improvements:
-* Established an initial E2E Testing environment, which is already yielding time savings for each release.
-* Developed an automated tool for tracking releases and their associated tasks, eliminating the need for engineer assistance in this area (NodeJS and *Rust*)
-* Implemented a command-line tool to expedite building cross-project apps (NodeJS and *Rust*)
-* Implemented a command-line tool for environment setup for new developers (Bash + NodeJS)`,
+Oversaw the strategic delay of projects, ensuring they were always postponed to the last possible moment. Pioneered the "I'll do it tomorrow" framework, which, unsurprisingly, is yet to be implemented.`,
     },
     {
       startDate: new Date("2018-01-01").toISOString(),
       endDate: new Date("2019-01-01").toISOString(),
-      companyName: "Company 2",
+      companyName: "Rustic Dreams Inc.",
+      jobTitle: "Lead Rust Evangelist (Without Actual Rust Knowledge)",
       description: `
-Driving force in the successful migration of a fully Native codebase to React-Native
-Learned TypeScript on the go, delved deep into how JavaScript engines and how they work
-Pushed and implemented a switch from JSC to Hermes, boosting startup times by 30% on Android
-      `,
+Promoted the wonders of Rust to anyone who'd listen, armed with buzzwords and a vague understanding. Managed to convince the team to adopt Rust, then promptly outsourced the actual coding to someone who knew what they were doing.`,
     },
   ],
 
   skills: [
     {
-      name: "TypeScript",
+      name: "Procrastination-driven Development",
       level: 1,
     },
     {
-      name: "React",
-      level: 0.2,
+      name: "Bookmarking Rust tutorials",
+      level: 0.9,
+    },
+    {
+      name: "Attending Rust conferences for the free swag.",
+      level: 0.86,
     },
   ],
 
   contractDetails: {
-    city: "Sofia",
-    email: "somelongassemail@gmail.com",
+    city: "Somewhere",
+    email: "dont@me",
     phone: undefined,
-    country: "Bulgaria",
+    country: "Earth",
   },
 
   educationHistory: [
     {
-      schoolName: "School 1",
+      schoolName: "School of Rock",
+      description: "",
       startDate: new Date("2019-01-01").toISOString(),
       endDate: "present",
     },
@@ -69,15 +64,15 @@ Pushed and implemented a switch from JSC to Hermes, boosting startup times by 30
 
   socials: [
     {
-      name: "Medium",
-      link: "https://medium.com/@dragoncodes",
+      name: "Blog (John's Journal of Journeys Not Yet Taken)",
+      link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     },
   ],
 
-  hobbies: ["Fantasy reading"],
+  hobbies: ["Meditative Napping"],
 };
 
-export default async function ResumeTemplater(props: { context: any }) {
+export default async function ResumeTemplater() {
   return (
     <div>
       <Resume resume={resume} />
