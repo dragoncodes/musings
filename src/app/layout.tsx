@@ -7,7 +7,7 @@ export default function MyApp(props: { children: React.ReactNode }) {
       <head></head>
 
       <body>
-        <div>{props.children}</div>;
+        <div>{props.children}</div>
       </body>
     </html>
   );
