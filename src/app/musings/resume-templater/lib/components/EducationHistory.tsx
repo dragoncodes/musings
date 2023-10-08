@@ -15,7 +15,7 @@ export function EducationHistory(props: {
           <div className="text-sm text-slate-700">
             {dateFormatter.format(new Date(education.startDate))} -
             {" " +
-              (education.endDate === "present"
+              (education.endDate === undefined
                 ? "Present"
                 : dateFormatter.format(new Date(education.endDate)))}
           </div>

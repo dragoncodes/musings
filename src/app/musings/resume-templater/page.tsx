@@ -15,7 +15,7 @@ Meet John Doe, the software engineer who dreams big but codes... occasionally. W
   employmentHistory: [
     {
       startDate: new Date("2019-01-01").toISOString(),
-      endDate: "present",
+      endDate: undefined,
       companyName: "LazyTech Innovations",
       jobTitle: "Chief Procrastination Officer (CPO)",
       description: `
@@ -58,7 +58,7 @@ Promoted the wonders of Rust to anyone who'd listen, armed with buzzwords and a 
       schoolName: "School of Rock",
       description: "",
       startDate: new Date("2019-01-01").toISOString(),
-      endDate: "present",
+      endDate: undefined,
     },
   ],
 
@@ -72,7 +72,7 @@ Promoted the wonders of Rust to anyone who'd listen, armed with buzzwords and a 
   hobbies: ["Meditative Napping"],
 };
 
-export default async function ResumeTemplater() {
+export default function ResumeTemplater() {
   return (
     <div>
       <Resume resume={resume} />

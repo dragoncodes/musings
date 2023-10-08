@@ -3,7 +3,7 @@ import { ResumeData } from "../types/ResumeData";
 import { dateFormatter } from "../utils/date";
 import remarkHtml from "remark-html";
 
-export async function EmploymentHistory(props: {
+export function EmploymentHistory(props: {
   employmentHistory: ResumeData["employmentHistory"];
 }) {
   return (
@@ -20,7 +20,7 @@ export async function EmploymentHistory(props: {
             <div className="text-sm text-slate-700">
               {dateFormatter.format(new Date(employmentItem.startDate))} -
               {" " +
-                (employmentItem.endDate === "present"
+                (employmentItem.endDate === undefined
                   ? "Present"
                   : dateFormatter.format(new Date(employmentItem.endDate)))}
             </div>
