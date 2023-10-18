@@ -1,9 +1,39 @@
 import { TypingTest } from "./TypingTest";
+import OpenAI from "openai";
 
-export default function TypingTestPage() {
+let lastFetchedTextTimeStamp: number | null = null;
+let lastFetchedText: string | null = null;
+
+export default async function TypingTestPage() {
+  if (
+    lastFetchedTextTimeStamp === null ||
+    Date.now() - lastFetchedTextTimeStamp > 1000 * 60 * 60 * 24
+  ) {
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+      fetch: fetch,
+    });
+
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content:
+            "Generate a short story about Harry Potter. 300 words max, no dialogue.",
+        },
+      ],
+      temperature: 0.8,
+      max_tokens: 256,
+    });
+
+    lastFetchedTextTimeStamp = Date.now();
+    lastFetchedText = response.choices[0]?.message.content ?? "Nop";
+  }
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-      <TypingTest text={text} />
+      <TypingTest text={lastFetchedText ?? "Nop"} />
     </div>
   );
 }

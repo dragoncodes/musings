@@ -10,6 +10,7 @@ import { Timer } from "./client/Timer";
 export function TypingTest(props: { text: string }) {
   const [cursorIndex, setCursorIndex] = useState(0);
   const [isTimeUp, setIsTimeUp] = useState(false);
+
   const wpm = useRef(0);
 
   const typedTextStateByIndex = useRef<TypedSymbolState[]>(
@@ -17,7 +18,11 @@ export function TypingTest(props: { text: string }) {
   );
 
   const onChange = (symbol: string) => {
-    if (symbol === Commands.backspace) {
+    if (symbol === Commands.backspace.valueOf()) {
+      if (cursorIndex === 0) {
+        return;
+      }
+
       typedTextStateByIndex.current[cursorIndex - 1] = "pending";
 
       setCursorIndex(cursorIndex - 1);
@@ -33,8 +38,6 @@ export function TypingTest(props: { text: string }) {
     typedTextStateByIndex.current[cursorIndex] = symbolState;
 
     setCursorIndex(cursorIndex + 1);
-
-    props.text[cursorIndex] === symbol;
   };
 
   const onTimeUp = useCallback(() => {
@@ -60,8 +63,6 @@ export function TypingTest(props: { text: string }) {
       />
 
       <TextInput onChange={onChange} />
-
-      <span className="text-[#f00]" text-slate-700 />
     </div>
   );
 }

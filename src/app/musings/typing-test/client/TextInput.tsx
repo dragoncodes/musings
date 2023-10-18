@@ -1,13 +1,13 @@
 "use client";
 
-import React, { KeyboardEvent, useCallback, useEffect } from "react";
-import { Command, Commands } from "./Commands";
+import React, { useCallback, useEffect } from "react";
+import { Commands } from "./Commands";
 
 export const TextInput = React.memo(function TextInput(props: {
-  onChange: (typedSymbol: Command | string) => void;
+  onChange: (typedSymbol: string) => void;
 }) {
   const onChange = useCallback(
-    (e: KeyboardEvent<HTMLInputElement>) => {
+    (e: KeyboardEvent) => {
       const typedSymbol = keyEventToString(e);
 
       if (typedSymbol) {
@@ -18,19 +18,18 @@ export const TextInput = React.memo(function TextInput(props: {
   );
 
   useEffect(() => {
-    document.addEventListener("keydown", onChange as any);
+    document.addEventListener("keydown", onChange);
 
     return () => {
-      document.removeEventListener("keydown", onChange as any);
+      document.removeEventListener("keydown", onChange);
     };
   }, [onChange]);
 
-  return <div></div>;
+  return null;
 });
 
-function keyEventToString(event: KeyboardEvent<any>): Command | string | null {
+function keyEventToString(event: KeyboardEvent): string | null {
   const key = event.key;
-  const shiftKey = event.shiftKey;
 
   // If the key is a single character and not a control character, return it
   if (key.length === 1) {
