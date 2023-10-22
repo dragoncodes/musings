@@ -1,10 +1,24 @@
 import { TypingTest } from "./TypingTest";
 import OpenAI from "openai";
 
+export default async function TypingTestPage() {
+  const text = await fetchTypingTestText();
+
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+      <TypingTest text={text} />
+    </div>
+  );
+}
+
 let lastFetchedTextTimeStamp: number | null = null;
 let lastFetchedText: string | null = null;
 
-export default async function TypingTestPage() {
+async function fetchTypingTestText(): Promise<string> {
+  if (process.env.NODE_ENV === "development") {
+    return text;
+  }
+
   if (
     lastFetchedTextTimeStamp === null ||
     Date.now() - lastFetchedTextTimeStamp > 1000 * 60 * 60 * 24
@@ -27,15 +41,15 @@ export default async function TypingTestPage() {
       max_tokens: 256,
     });
 
+    const choice = response.choices[0]?.message.content ?? text;
+
     lastFetchedTextTimeStamp = Date.now();
-    lastFetchedText = response.choices[0]?.message.content ?? "Nop";
+    lastFetchedText = choice;
+
+    return choice;
   }
 
-  return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-      <TypingTest text={lastFetchedText ?? "Nop"} />
-    </div>
-  );
+  return lastFetchedText ?? text;
 }
 
 const text = `The cobblestone streets of Hogsmeade were lively as usual, with students from Hogwarts exploring the various magical shops and eateries. Warm light spilled from the windows of Honeydukes, where enchanted candies danced playfully on the shelves.

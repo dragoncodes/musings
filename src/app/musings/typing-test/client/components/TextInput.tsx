@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect } from "react";
-import { Commands } from "./Commands";
+import { Commands } from "../types/Commands";
 
 export const TextInput = React.memo(function TextInput(props: {
   onChange: (typedSymbol: string) => void;
@@ -29,6 +29,8 @@ export const TextInput = React.memo(function TextInput(props: {
 });
 
 function keyEventToString(event: KeyboardEvent): string | null {
+  // event.preventDefault();
+
   const key = event.key;
 
   // If the key is a single character and not a control character, return it
