@@ -79,15 +79,21 @@ export function TypingTest(props: { text: string }) {
       className="w-[30em] rounded-md bg-white p-5 text-xl"
       ref={containerRef}
     >
-      <Timer time={60 * 1000} onTimeUp={onTimeUp} />
+      {containerWidth === 0 ? (
+        <div>Loading ...</div>
+      ) : (
+        <>
+          <Timer time={60 * 1000} onTimeUp={onTimeUp} />
 
-      <CurrentTextDisplay
-        currentIndex={cursorIndex}
-        containerWidth={containerWidth}
-        text={props.text}
-        typedSymbolState={typedTextStateByIndex.current}
-      />
-      <TextInput onChange={onChange} />
+          <CurrentTextDisplay
+            currentIndex={cursorIndex}
+            containerWidth={containerWidth}
+            text={props.text}
+            typedSymbolState={typedTextStateByIndex.current}
+          />
+          <TextInput onChange={onChange} />
+        </>
+      )}
     </div>
   );
 }

@@ -5,6 +5,6 @@ export default {
   theme: {
     extend: {},
   },
-  important: 'body',
+  important: "body",
   plugins: [],
 } satisfies Config;
