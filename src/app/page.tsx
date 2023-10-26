@@ -30,6 +30,20 @@ export default function Home() {
 
             <Link
               className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
+              href="https://github.com/dragoncodes/pdf-math-localisator"
+              target="_blank"
+            >
+              <h3 className="text-2xl font-bold">
+                Math PDFs translator with OpenAI
+              </h3>
+              <div className="text-lg">
+                A simple Rust tool that translates a PDF containing math
+                problems into a passed language using the OpenAI API{" "}
+              </div>
+            </Link>
+
+            <Link
+              className="flex max-w-xs flex-col gap-4 rounded-xl bg-white/10 p-4 text-white hover:bg-white/20"
               href="/musings/tree-structure"
               target="_blank"
             >
