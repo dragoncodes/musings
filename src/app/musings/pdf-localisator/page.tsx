@@ -58,7 +58,8 @@ async function onSubmit(form: FormData) {
 export default function PdfLocalisator() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-      <form action={void onSubmit}>
+      {/* eslint-disable-next-line @typescript-eslint/no-misused-promises*/}
+      <form action={onSubmit}>
         <input type="file" name="file" />
 
         <button type="submit"> Submit</button>
