@@ -16,7 +16,7 @@ async function onSubmit(form: FormData) {
 
   const file = form.get("file") as FileLike;
 
-  const tempPath = path.join(process.cwd(), "temp.pdf");
+  const tempPath = path.join("tmp", "temp.pdf");
 
   const b = Buffer.from(await file.text());
 
@@ -27,7 +27,7 @@ async function onSubmit(form: FormData) {
   const fileName = await new Promise<string>((resolve, reject) => {
     execFile(
       binaryPath,
-      [tempPath, "bulgarian"],
+      [path.join("..", tempPath), "bulgarian"],
       {
         cwd: path.dirname(binaryPath),
         env: {
@@ -41,10 +41,7 @@ async function onSubmit(form: FormData) {
         } else {
           const resultFileName = file.name.replace(".pdf", ".txt");
 
-          fs.writeFileSync(
-            path.join(process.cwd(), "public", resultFileName),
-            stdout,
-          );
+          fs.writeFileSync(path.join("tmp", resultFileName), stdout);
 
           resolve(resultFileName);
         }
@@ -52,7 +49,7 @@ async function onSubmit(form: FormData) {
     );
   });
 
-  redirect(`/${fileName}`);
+  redirect(`/musings/pdf-localisator/preview/${fileName}`);
 }
 
 export default function PdfLocalisator() {
