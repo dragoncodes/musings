@@ -1,5 +1,6 @@
 import { execFile } from "child_process";
 import fs from "fs";
+import os from "os";
 import { redirect } from "next/navigation";
 import { FileLike } from "openai/uploads";
 import path from "path";
@@ -16,7 +17,7 @@ async function onSubmit(form: FormData) {
 
   const file = form.get("file") as FileLike;
 
-  const tempPath = path.join("tmp", "temp.pdf");
+  const tempPath = path.join(os.tmpdir(), "temp.pdf");
 
   const b = Buffer.from(await file.text());
 
@@ -27,7 +28,7 @@ async function onSubmit(form: FormData) {
   const fileName = await new Promise<string>((resolve, reject) => {
     execFile(
       binaryPath,
-      [path.join("..", tempPath), "bulgarian"],
+      [tempPath, "bulgarian"],
       {
         cwd: path.dirname(binaryPath),
         env: {
