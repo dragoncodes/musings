@@ -59,44 +59,52 @@ async function onSubmit() {
 
   console.log("Calling pdftotext");
 
-  await new Promise((resolve, reject) => {
-    execFile(path.join(binPath, "pdftotext"), ["--help"], (error, stdout) => {
-      console.log("pdftotext", error, stdout);
-      if (error) {
-        reject(error);
-      } else {
-        resolve(stdout);
-      }
-    });
-  });
-
-  console.log("Calling pdf-localisator");
-  await new Promise((resolve, reject) => {
-    execFile(
-      binaryPath,
-      ["omg", "bulgarian"],
-      {
-        cwd: path.dirname(binaryPath),
-        env: {
-          ...process.env,
-        },
-      },
-      (error, stdout) => {
-        console.log("Pdf-localisator", error, stdout);
-
+  try {
+    await new Promise((resolve, reject) => {
+      execFile(path.join(binPath, "pdftotext"), ["--help"], (error, stdout) => {
+        console.log("pdftotext", error, stdout);
         if (error) {
-          console.error("Error:", error);
-          reject();
+          reject(error);
         } else {
-          // const resultFileName = file.name.replace(".pdf", ".txt");
-          //
-          // fs.writeFileSync(path.join("tmp", resultFileName), stdout);
-          //
           resolve(stdout);
         }
-      },
-    );
-  });
+      });
+    });
+  } catch (e: any) {
+    console.log("OMG", e);
+  }
+
+  console.log("Calling pdf-localisator");
+  try {
+    await new Promise((resolve, reject) => {
+      execFile(
+        binaryPath,
+        ["omg", "bulgarian"],
+        {
+          cwd: path.dirname(binaryPath),
+          env: {
+            ...process.env,
+          },
+        },
+        (error, stdout) => {
+          console.log("Pdf-localisator", error, stdout);
+
+          if (error) {
+            console.error("Error:", error);
+            reject();
+          } else {
+            // const resultFileName = file.name.replace(".pdf", ".txt");
+            //
+            // fs.writeFileSync(path.join("tmp", resultFileName), stdout);
+            //
+            resolve(stdout);
+          }
+        },
+      );
+    });
+  } catch (e: any) {
+    console.log("OMG1", e);
+  }
 }
 
 export default function PdfLocalisator() {
