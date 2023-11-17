@@ -70,7 +70,7 @@ async function onSubmit() {
         }
       });
     });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.log("OMG", e);
   }
 
@@ -102,7 +102,7 @@ async function onSubmit() {
         },
       );
     });
-  } catch (e: any) {
+  } catch (e: unknown) {
     console.log("OMG1", e);
   }
 }
