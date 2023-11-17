@@ -12,23 +12,69 @@ const binaryPath = path.join(binPath, "pdf-localisator");
 
 process.env.PATH = `${binPath}:${envPath}`;
 
-async function onSubmit(form: FormData) {
+// async function onSubmit(form: FormData) {
+//   "use server";
+//
+//   const file = form.get("file") as FileLike;
+//
+//   const tempPath = path.join(os.tmpdir(), "temp.pdf");
+//
+//   const b = Buffer.from(await file.text());
+//
+//   fs.createWriteStream(tempPath).write(b);
+//
+//   console.log("tempPath", tempPath, "saved");
+//
+//   const fileName = await new Promise<string>((resolve, reject) => {
+//     execFile(
+//       binaryPath,
+//       [tempPath, "bulgarian"],
+//       {
+//         cwd: path.dirname(binaryPath),
+//         env: {
+//           ...process.env,
+//         },
+//       },
+//       (error, stdout) => {
+//         if (error) {
+//           console.error("Error:", error);
+//           reject();
+//         } else {
+//           const resultFileName = file.name.replace(".pdf", ".txt");
+//
+//           fs.writeFileSync(path.join("tmp", resultFileName), stdout);
+//
+//           resolve(resultFileName);
+//         }
+//       },
+//     );
+//   });
+//
+//   redirect(`/musings/pdf-localisator/preview/${fileName}`);
+// }
+async function onSubmit() {
   "use server";
 
-  const file = form.get("file") as FileLike;
+  console.log("Binary path", binaryPath);
 
-  const tempPath = path.join(os.tmpdir(), "temp.pdf");
+  console.log("Calling pdftotext");
 
-  const b = Buffer.from(await file.text());
+  await new Promise((resolve, reject) => {
+    execFile(path.join(binPath, "pdftotext"), ["--help"], (error, stdout) => {
+      console.log("pdftotext", error, stdout);
+      if (error) {
+        reject(error);
+      } else {
+        resolve(stdout);
+      }
+    });
+  });
 
-  fs.createWriteStream(tempPath).write(b);
-
-  console.log("tempPath", tempPath, "saved");
-
-  const fileName = await new Promise<string>((resolve, reject) => {
+  console.log("Calling pdf-localisator");
+  await new Promise((resolve, reject) => {
     execFile(
       binaryPath,
-      [tempPath, "bulgarian"],
+      ["omg", "bulgarian"],
       {
         cwd: path.dirname(binaryPath),
         env: {
@@ -36,21 +82,21 @@ async function onSubmit(form: FormData) {
         },
       },
       (error, stdout) => {
+        console.log("Pdf-localisator", error, stdout);
+
         if (error) {
           console.error("Error:", error);
           reject();
         } else {
-          const resultFileName = file.name.replace(".pdf", ".txt");
-
-          fs.writeFileSync(path.join("tmp", resultFileName), stdout);
-
-          resolve(resultFileName);
+          // const resultFileName = file.name.replace(".pdf", ".txt");
+          //
+          // fs.writeFileSync(path.join("tmp", resultFileName), stdout);
+          //
+          resolve(stdout);
         }
       },
     );
   });
-
-  redirect(`/musings/pdf-localisator/preview/${fileName}`);
 }
 
 export default function PdfLocalisator() {
