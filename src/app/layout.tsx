@@ -1,13 +1,11 @@
 import React from "react";
 import "./main.css";
 
-export default function MyApp(props: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html>
-      <head></head>
-
+    <html lang="en">
       <body>
-        <div>{props.children}</div>
+        <div>{children}</div>
       </body>
     </html>
   );

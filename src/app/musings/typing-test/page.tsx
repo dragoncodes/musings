@@ -1,6 +1,8 @@
 import { TypingTest } from "./TypingTest";
 import OpenAI from "openai";
 
+export const dynamic = "force-dynamic";
+
 export default async function TypingTestPage() {
   const text = await fetchTypingTestText();
 
